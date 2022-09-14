@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  reverse_nginx:
+    container_name: reverse_nginx
+    image: nginx:1.23-alpine
+    networks:
+      - reverse
+    ports:
+      - "80:80"
+    volumes:
+      - ./reverse_proxy/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./reverse_proxy/html:/usr/share/nginx/html
+    restart: always
+    depends_on:
+      - django_app
+
+  gutendex_db:
+      image: postgres:14
+      container_name: gutendex_db
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: gutendex
+        POSTGRES_USER: gutendex
+        POSTGRES_DB: gutendex
+      volumes:
+        - pgsql_data:/var/lib/postgresql/data
+      networks:
+        - pgsql
+      # ports:
+      #   - "5432:5432"
+
+  django_app:
+      container_name: django_app
+      build: .
+      env_file:
+        - "./gutendex/.env"
+      volumes:
+        - catalog_data:/src/app/catalog_files
+        - ./gutendex/.env:/src/app/gutendex/.env 
+      networks:
+        - pgsql
+        - reverse
+      # ports:
+      #   - "8000:8000"
+      depends_on:
+        - gutendex_db
+
+volumes:
+  pgsql_data:
+    driver: local
+  catalog_data:
+    driver: local
+
+networks:
+  pgsql:
+    driver: bridge
+  reverse:
+    driver: bridge

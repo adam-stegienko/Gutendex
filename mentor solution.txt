@@ -1,0 +1,21 @@
+ mentor solution
+
+ 1. connect pgsql
+ - db -- gutendex
+ - user --gutendex
+ - password --gutendex
+ - adminer?
+
+ 2. Gutendex app
+ - e-mail envs -- see them
+ - dependency -- nginx on app -- app on db -- ???
+ - don't update container in Dockerfile!
+ - volume for folder with catalogs -- important!
+ - granting privileges for using db -- for example using initdb.sql
+
+ 3. Nginx part
+ - set up a separate network
+ - remove the static files from backend
+ - volume for nginx conf
+ - volume for static files (.../gutendex/static)
+ - nginx conf -- default 80 listen -- servername localhost -- root ...html/gutendex -- location / root the same + try files @backend_server add header debug from forntend backednd -- location @backend_server http://gutendex:8000 -- add header + proxy set header for this -- add events and http part for sure!
