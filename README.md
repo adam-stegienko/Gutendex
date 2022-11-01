@@ -2,7 +2,7 @@ Gutendex
 ========
 #### NOTE FROM ADAM:
 
-In order to start the dockerized version of the app, make sure you have docker installed on your machine and run the "init.sh" script. Then you can access the Foodtrucks application via address http://localhost
+In order to start the dockerized version of the app, make sure you have docker installed on your machine, add the ".env" file with PostgreSQL database and Nginx server's environmental variables of your choice and run the "init.sh" script. Then you can access the Gutendex application via address http://localhost
 
 ========
 
