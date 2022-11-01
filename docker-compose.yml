@@ -27,8 +27,6 @@ services:
         - pgsql_data:/var/lib/postgresql/data
       networks:
         - pgsql
-      # ports:
-      #   - "5432:5432"
 
   django_app:
       container_name: django_app
@@ -41,8 +39,6 @@ services:
       networks:
         - pgsql
         - reverse
-      # ports:
-      #   - "8000:8000"
       depends_on:
         - gutendex_db
 
